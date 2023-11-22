@@ -1,0 +1,41 @@
+import random
+
+def escolher_palavra():
+    palavras = ["PYTHON", "JAVA", "JAVASCRIPT", "HTML", "CSS", "REACT", "ANGULAR"]
+    return random.choice(palavras)
+
+def jogar_forca(palavra):
+    palavra_escondida = ["_"] * len(palavra)
+    tentativas = 6
+    letras_tentadas = []
+
+    print("Bem-vindo ao Jogo da Forca!")
+
+    while tentativas > 0:
+        letra = input("\nDigite uma letra: ").upper()
+
+        if letra in letras_tentadas:
+            print("Você já tentou essa letra. Tente novamente.")
+            continue
+
+        letras_tentadas.append(letra)
+
+        if letra in palavra:
+            for i in range(len(palavra)):
+                if palavra[i] == letra:
+                    palavra_escondida[i] = letra
+            print("".join(palavra_escondida))
+        else:
+            tentativas -= 1
+            print("Letra incorreta. Tentativas restantes:", tentativas)
+
+        if "_" not in palavra_escondida:
+            print("\nParabéns! Você acertou a palavra:", palavra)
+            break
+
+    if "_" in palavra_escondida:
+        print("\nVocê foi enforcado! A palavra era:", palavra)
+
+if __name__ == "__main__":
+    palavra_para_adivinhar = escolher_palavra().upper()
+    jogar_forca(palavra_para_adivinhar)
